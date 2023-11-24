@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class PlayerController : MonoBehaviour
 
     private GameObject primBall;
     private GameObject secBall;
+
+    private GameObject mainBall;
     void Start()
     {
         primBall = Instantiate(ball1Prefab, primaryBallPos.position, Quaternion.identity);
         primBall.transform.parent = transform;
         secBall = Instantiate(ball2Prefab, secondaryBallPos.position, Quaternion.identity);
         secBall.transform.parent = transform;
+
+        mainBall=primBall;
         //nastavit scale (bud mala nebo velka, podle primary nebo secondary)
     }
 
@@ -28,17 +33,33 @@ public class PlayerController : MonoBehaviour
         RotatePlayer();
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            primBall.transform.DOMove(mousePosition, 1f)
-                .SetEase(Ease.Linear);
+            Shoot();
         }
         if (Input.GetMouseButtonDown(1))
         {
-            secBall.transform.position = primaryBallPos.position;
-            secBall = primBall;
-            primBall.transform.position = secondaryBallPos.position;
-            primBall = secBall;
+            SwapBalls();
         }
+        
+    }
+
+    private void Shoot()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mainBall.transform.DOMove(mainBall.transform.position + mainBall.transform.right * 100f, 2f)
+            .SetEase(Ease.Linear)
+            .OnUpdate(() =>
+            {
+                this.
+            }); ;
+    }
+
+    private void SwapBalls()
+    {
+        Vector2 tempPosition = primBall.transform.position;
+        primBall.transform.position = secBall.transform.position;
+        secBall.transform.position = tempPosition;
+
+        mainBall = (mainBall == primBall) ? secBall : primBall;
     }
 
     private void RotatePlayer()
