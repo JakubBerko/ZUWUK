@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
         secBall.transform.parent = transform;
 
         mainBall=primBall;
-        //nastavit scale (bud mala nebo velka, podle primary nebo secondary)
     }
 
     void Update()
@@ -34,6 +33,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+            MoveSecBallToPrim();
+            CreateNewBall();
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -42,22 +43,30 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void MoveSecBallToPrim()
+    {
+        secBall.transform.position = primaryBallPos.transform.position;
+        mainBall = secBall;
+    }
+
+    private void CreateNewBall()
+    {
+        primBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
+        primBall.transform.parent = transform;
+    }
+
     private void Shoot()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mainBall.transform.DOMove(mainBall.transform.position + mainBall.transform.right * 100f, 2f)
-            .SetEase(Ease.Linear)
-            .OnUpdate(() =>
-            {
-                this.
-            }); ;
+            .SetEase(Ease.Linear);
     }
+
 
     private void SwapBalls()
     {
-        Vector2 tempPosition = primBall.transform.position;
         primBall.transform.position = secBall.transform.position;
-        secBall.transform.position = tempPosition;
+        secBall.transform.position = primaryBallPos.position;
 
         mainBall = (mainBall == primBall) ? secBall : primBall;
     }
