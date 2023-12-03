@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void Shoot()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mainBall.transform.DOMove(mainBall.transform.position + mainBall.transform.right * 100f, 2f)
+        mainBall.transform.DOMove(mainBall.transform.position + mainBall.transform.right * 100f, 1f)
             .SetEase(Ease.Linear);
     }
 
@@ -68,7 +68,14 @@ public class PlayerController : MonoBehaviour
         primBall.transform.position = secBall.transform.position;
         secBall.transform.position = primaryBallPos.position;
 
-        mainBall = (mainBall == primBall) ? secBall : primBall;
+        if (mainBall == primBall)
+        {
+            mainBall = secBall;
+        }
+        else
+        {
+            mainBall = primBall;
+        };
     }
 
     private void RotatePlayer()

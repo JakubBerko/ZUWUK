@@ -162,7 +162,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239836536}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -338,7 +338,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583680058}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -472,7 +472,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272123735}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -527,11 +527,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5228205836426637517, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04
+      value: 3.02
       objectReference: {fileID: 0}
     - target: {fileID: 5228205836426637517, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.24
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 5228205836426637517, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
       propertyPath: m_LocalPosition.z
