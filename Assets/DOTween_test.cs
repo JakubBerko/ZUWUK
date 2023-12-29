@@ -10,7 +10,6 @@ public class DOTween_test : MonoBehaviour
     public GameObject prefabToSpawn;
     
     public Transform spawnPos;
-    public Vector3[] waypoints = new Vector3[3];
     private GameObject testObject;
 
     void Start()
@@ -21,6 +20,6 @@ public class DOTween_test : MonoBehaviour
 
     private void CreatePath()
     {
-        testObject.transform.DOPath(waypoints, 3f, PathType.CatmullRom);
+
     }
 }

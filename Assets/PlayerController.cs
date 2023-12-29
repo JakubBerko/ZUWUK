@@ -42,23 +42,23 @@ public class PlayerController : MonoBehaviour
 
     private void MoveSecBallToPrim()
     {
-        
+        //TODO
     }
 
     private void CreateNewBall()
     {
-        
+        // instantiate
     }
 
     private void Shoot()
     {
-        primBall.transform.DOMove()
+        //rb add force 
     }
 
 
     private void SwapBalls()
     {
-        
+        //TODO
     }
 
     private void RotatePlayer()
