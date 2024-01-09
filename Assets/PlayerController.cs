@@ -77,19 +77,11 @@ public class PlayerController : MonoBehaviour
 
     private void SwapBalls()
     {
-        if (shootPrimary == true)
-        {
-            shootPrimary = false;
-        }
-        else
-        {
-            shootPrimary = true;
-        }
+        shootPrimary = !shootPrimary;
 
         Vector2 primBallPos = primaryBallPos.position;
         Vector2 secBallPos = secondaryBallPos.position;
 
-        //Swap the positions using DOTween
         DOTween.Sequence()
             .Append(primBall.transform.DOMove(secBallPos, 0.2f))
             .Join(secBall.transform.DOMove(primBallPos, 0.2f))
@@ -97,7 +89,7 @@ public class PlayerController : MonoBehaviour
             .OnComplete(() => KillSwapTween()); 
     }
 
-    private void KillSwapTween() //možná zbyteèné
+    private void KillSwapTween() //moï¿½nï¿½ zbyteï¿½nï¿½
     {
         DOTween.Kill("swapBalls");
     }
