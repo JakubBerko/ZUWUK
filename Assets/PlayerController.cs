@@ -10,13 +10,11 @@ public class PlayerController : MonoBehaviour
 {
     private BallColor ballColor;
 
-    bool shootPrimary = true;
     float ballMovementSpeed = 300f;
 
     public Transform primaryBallPos;
     public Transform secondaryBallPos;
     public GameObject ball1Prefab;
-    public GameObject ball2Prefab;
 
     private GameObject primBall;
     private GameObject secBall;
@@ -26,8 +24,10 @@ public class PlayerController : MonoBehaviour
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
 
         primBall = Instantiate(ball1Prefab, primaryBallPos.position, Quaternion.identity);
+        primBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         primBall.transform.parent = primaryBallPos;
         secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
+        secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         secBall.transform.parent = secondaryBallPos;
         
     }
@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private void MoveSecBallToPrim()
     {
         secBall.transform.position = primaryBallPos.position;
+        secBall.transform.parent = primaryBallPos;
         primBall = secBall;
         secBall = null;
     }
@@ -75,29 +76,20 @@ public class PlayerController : MonoBehaviour
     {
         primBall.transform.position = secondaryBallPos.position;
         secBall.transform.position = primaryBallPos.position;
+        //primBall.transform.DOMove(secondaryBallPos.position, 0.5f);
+        //secBall.transform.DOMove(primaryBallPos.position, 0.5f);
 
         tempBall = primBall;
         primBall = secBall;
         secBall = tempBall;
-
-        //primBall.transform.parent = primaryBallPos;
-
         tempBall = null;
-
-        //Vector2 primBallPos = primaryBallPos.position;
-        //Vector2 secBallPos = secondaryBallPos.position;
-
-        //DOTween.Sequence()
-        //    .Append(primBall.transform.DOMove(secBallPos, 0.2f))
-        //    .Join(secBall.transform.DOMove(primBallPos, 0.2f))
-        //    .SetId("swapBallsT")
-        //    .OnComplete(() => KillSwapTween()); 
     }
-
+    /*
     private void KillSwapTween() //mozna zbytecne
     {
         DOTween.Kill("swapBalls");
-    }
+    } 
+    */
 
     private void RotatePlayer()
     {
