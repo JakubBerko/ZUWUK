@@ -20,14 +20,15 @@ public class PlayerController : MonoBehaviour
 
     private GameObject primBall;
     private GameObject secBall;
+    private GameObject tempBall;
     void Start()
     {
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
 
         primBall = Instantiate(ball1Prefab, primaryBallPos.position, Quaternion.identity);
-        primBall.transform.parent = transform;
-        secBall = Instantiate(ball2Prefab, secondaryBallPos.position, Quaternion.identity);
-        secBall.transform.parent = transform;
+        primBall.transform.parent = primaryBallPos;
+        secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
+        secBall.transform.parent = secondaryBallPos;
         
     }
 
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+            MoveSecBallToPrim();
             CreateNewBall();
         }
         if (Input.GetMouseButtonDown(1))
@@ -48,48 +50,51 @@ public class PlayerController : MonoBehaviour
 
     private void MoveSecBallToPrim()
     {
-        //TODO
+        secBall.transform.position = primaryBallPos.position;
+        primBall = secBall;
+        secBall = null;
     }
 
     private void CreateNewBall()
     {
-            primBall = Instantiate(ball1Prefab, primaryBallPos.position, Quaternion.identity);
-            primBall.transform.parent = transform;
-            primBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
+            secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
+            secBall.transform.parent = secondaryBallPos;
+            secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
     }
 
     private void Shoot()
     {
         Vector2 shootingDirection = transform.right;
 
-        if (shootPrimary == true)
-        {
-            primBall.transform.parent = null;
-            primBall.GetComponent<Rigidbody2D>().AddForce(shootingDirection * ballMovementSpeed);
-        }
-        else
-        {
-            secBall.transform.parent = null;
-            secBall.GetComponent<Rigidbody2D>().AddForce(shootingDirection * ballMovementSpeed);
-        }
+        primBall.transform.parent = null;
+        primBall.GetComponent<Rigidbody2D>().AddForce(shootingDirection * ballMovementSpeed);
     }
 
 
     private void SwapBalls()
     {
-        shootPrimary = !shootPrimary;
+        primBall.transform.position = secondaryBallPos.position;
+        secBall.transform.position = primaryBallPos.position;
 
-        Vector2 primBallPos = primaryBallPos.position;
-        Vector2 secBallPos = secondaryBallPos.position;
+        tempBall = primBall;
+        primBall = secBall;
+        secBall = tempBall;
 
-        DOTween.Sequence()
-            .Append(primBall.transform.DOMove(secBallPos, 0.2f))
-            .Join(secBall.transform.DOMove(primBallPos, 0.2f))
-            .SetId("swapBallsT")
-            .OnComplete(() => KillSwapTween()); 
+        //primBall.transform.parent = primaryBallPos;
+
+        tempBall = null;
+
+        //Vector2 primBallPos = primaryBallPos.position;
+        //Vector2 secBallPos = secondaryBallPos.position;
+
+        //DOTween.Sequence()
+        //    .Append(primBall.transform.DOMove(secBallPos, 0.2f))
+        //    .Join(secBall.transform.DOMove(primBallPos, 0.2f))
+        //    .SetId("swapBallsT")
+        //    .OnComplete(() => KillSwapTween()); 
     }
 
-    private void KillSwapTween() //mo�n� zbyte�n�
+    private void KillSwapTween() //mozna zbytecne
     {
         DOTween.Kill("swapBalls");
     }
