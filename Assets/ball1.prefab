@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3654984381502787475}
   - component: {fileID: 5203081199982495127}
   - component: {fileID: -3581996899674858490}
+  - component: {fileID: -2587420905652670169}
+  - component: {fileID: -3090086735453652769}
   m_Layer: 0
   m_Name: ball1
   m_TagString: Untagged
@@ -71,10 +73,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1208042403
+  m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: 1ce49eed31e74b94bbb67a5cdb6bbd2a, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: 451223f2c49009f4ca8c6ee9c9be5ab0, type: 3}
   m_Color: {r: 0.1684067, g: 0.4528302, b: 0.07048772, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,3 +114,50 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!58 &-2587420905652670169
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625425701277090264}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &-3090086735453652769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2625425701277090264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15d97140eaf23e43b26f57c5fb7bb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

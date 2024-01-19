@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isPaused = false;
+
     private BallColor ballColor;
 
     float ballMovementSpeed = 300f;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         RotatePlayer();
+
+        if (isPaused) return;
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
@@ -45,7 +49,6 @@ public class PlayerController : MonoBehaviour
         {
             SwapBalls();
         }
-
     }
 
     private void MoveSecBallToPrim()
@@ -98,4 +101,5 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
 }
