@@ -4,11 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     public bool isPaused = false;
+    private bool canShoot = true;
 
     private BallColor ballColor;
 
@@ -21,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private GameObject primBall;
     private GameObject secBall;
     private GameObject tempBall;
+
+
     void Start()
     {
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
@@ -38,17 +43,22 @@ public class PlayerController : MonoBehaviour
     {
         RotatePlayer();
 
-        if (isPaused) return;
-        if (Input.GetMouseButtonDown(0))
+
+        if (EventSystem.current.currentSelectedGameObject == null)
         {
-            Shoot();
-            MoveSecBallToPrim();
-            CreateNewBall();
+            if (isPaused) return;
+            if (Input.GetMouseButtonDown(1))
+            {
+                SwapBalls();
+            }
+            if (Input.GetMouseButtonDown(0) && canShoot)
+            {
+                Shoot();
+                MoveSecBallToPrim();
+                CreateNewBall();
+            }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            SwapBalls();
-        }
+        
     }
 
     private void MoveSecBallToPrim()
@@ -65,13 +75,22 @@ public class PlayerController : MonoBehaviour
             secBall.transform.parent = secondaryBallPos;
             secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
     }
-
+    
     private void Shoot()
     {
         Vector2 shootingDirection = transform.right;
 
         primBall.transform.parent = null;
         primBall.GetComponent<Rigidbody2D>().AddForce(shootingDirection * ballMovementSpeed);
+
+        StartCoroutine(DespawnBallAfterDelay(primBall, 2f));
+        StartCoroutine(ShotLimiter());
+    }
+    IEnumerator ShotLimiter() //antispam støel, zruš støíení, poèkej nìjaký èas, povol støílení
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(0.2f);
+        canShoot = true;
     }
 
 
@@ -87,12 +106,6 @@ public class PlayerController : MonoBehaviour
         secBall = tempBall;
         tempBall = null;
     }
-    /*
-    private void KillSwapTween() //mozna zbytecne
-    {
-        DOTween.Kill("swapBalls");
-    } 
-    */
 
     private void RotatePlayer()
     {
@@ -101,5 +114,14 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+    private IEnumerator DespawnBallAfterDelay(GameObject ball, float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
+        // Destroy the ball after the delay
+        if (ball != null)
+        {
+            Destroy(ball);
+        }
+    }
 }
