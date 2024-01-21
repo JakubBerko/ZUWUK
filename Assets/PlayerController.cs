@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
 
         StartCoroutine(DespawnBallAfterDelay(primBall, 2f));
         StartCoroutine(ShotLimiter());
+
     }
     IEnumerator ShotLimiter() //antispam støel, zruš støíení, poèkej nìjaký èas, povol støílení
     {
