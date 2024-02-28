@@ -6,64 +6,60 @@ using UnityEngine;
 public class BallChain : MonoBehaviour
 {
     //spline.EvaluatePosition();
+
     private BallColor ballColor;
     public GameObject ballPrefab;
     [SerializeField] int ballCount = 5;
-    private GameObject front = null;
     private GameObject ahead = null;
     private int section = 0;
-
+    private Color ballColorVar;
 
     void Start()
     {
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
         List<GameObject> balls = new List<GameObject>();
-        
+        ballColorVar = ballColor.GetRandomColor();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(ballCount <=0)
+        if(ballCount <= 0)
         {
             return;
         }
-        GameObject newBall = CreateBall();
+        GameObject newBall = CreateBall(ballColorVar);
         SetAssoc(newBall, ahead);
-        front = newBall;
+        ahead = newBall;
         section--;
         ballCount--;
-        Debug.Log(ballCount);
         if (section <= 0)
         {
             section = UnityEngine.Random.Range(1, 4);
+            ballColorVar = ballColor.GetRandomColor();
         }
     }
 
-    private void SetAssociation(List<GameObject> balls)
+    private void SetAssociation(GameObject newBall, GameObject behind)
     {
-        GameObject behind = null;
-
-        for (int i = 0; i < balls.Count; i++)
+        if (behind != null)
         {
-            //if (behind != null) balls[i].GetComponent<Ball>().AdjustRespectiveLocation(behind, true); //TODO set the location
-
-            behind = balls[i];
+            newBall.GetComponent<Ball>().AdjustRespectiveLocation(behind, true);
         }
     }
 
-    public GameObject CreateBall()
+    public GameObject CreateBall(Color color)
     {
         GameObject ball = Instantiate(ballPrefab,transform.position, Quaternion.identity);
         ball.transform.parent = transform;
-        ball.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         ball.AddComponent<Ball>();
-
+        ball.GetComponent<SpriteRenderer>().color = color;
         return ball;
     }
+
     private static void SetAssoc(GameObject behind, GameObject ahead)
     {
-        //if (ahead != null) ahead.GetComponent<Ball>().behind = behind;
-        //if (behind != null) behind.GetComponent<Ball>().ahead = ahead;
+        if (ahead != null) ahead.GetComponent<Ball>().AdjustRespectiveLocation(behind,false);
+        if (behind != null) behind.GetComponent<Ball>().ahead = ahead;
     }
 }
