@@ -2,25 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dreamteck.Splines;
 
 public class Ball : MonoBehaviour
 {
-    public float ballRadius = 0.35f;
-    public GameObject ahead = null;
-
+    SplineComputer spline;
+    private SplineFollower splineFollower;
+    void Awake()
+    {
+    }
     void Start()
     {
+        spline = GameObject.Find("Spline").GetComponent<SplineComputer>();
+        spline.is2D = true;
+        splineFollower = gameObject.AddComponent<SplineFollower>();
+        splineFollower.spline = spline;
+        splineFollower.motion.is2D = true;
+        splineFollower.useTriggers = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void AdjustRespectiveLocation(GameObject referenceBall, bool behind)
-    {
-        float offset = (behind) ? -ballRadius : ballRadius; 
-        Vector3 newPosition = referenceBall.transform.position + new Vector3(0f, offset, 0f);
-        transform.position = newPosition;
     }
 }
