@@ -20,10 +20,16 @@ public class PlayerController : MonoBehaviour
     public Transform primaryBallPos;
     public Transform secondaryBallPos;
     public GameObject ball1Prefab;
+    public GameObject PiercingBallPrefab;
+    public GameObject CannonBallPrefab;
 
     private GameObject primBall;
     private GameObject secBall;
     private GameObject tempBall;
+
+    [SerializeField] private Transform spotUp; 
+    [SerializeField] private Transform spotDown; 
+    private Transform currentPlayerSpot;
 
 
     void Start()
@@ -33,10 +39,17 @@ public class PlayerController : MonoBehaviour
         primBall = Instantiate(ball1Prefab, primaryBallPos.position, Quaternion.identity);
         primBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         primBall.transform.parent = primaryBallPos;
+        primBall.tag = "ShotBall";
+        primBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
+        primBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
         secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
         secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         secBall.transform.parent = secondaryBallPos;
-        
+        secBall.tag = "ShotBall";
+        secBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
+        secBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
+
+        currentPlayerSpot = spotDown;
     }
 
     void Update()
@@ -58,7 +71,18 @@ public class PlayerController : MonoBehaviour
                 CreateNewBall();
             }
         }
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SwapCharacter();
+        }
+
+    }
+
+    private void SwapCharacter()
+    {
+        Transform destinationSpot = (currentPlayerSpot == spotUp) ? spotDown : spotUp; // If currentPlayerSpot == spotUp, do spotDown = destinationSpot; else, do destinationSpot = spotUp.
+        transform.position = destinationSpot.position;
+        currentPlayerSpot = destinationSpot;
     }
 
     private void MoveSecBallToPrim()
@@ -69,11 +93,27 @@ public class PlayerController : MonoBehaviour
         secBall = null;
     }
 
-    private void CreateNewBall()
+    private void CreateNewBall() //fix piercing ball (it flickers and doesnt spawn) - ono samo funguje? ok
     {
+        int randomChance = UnityEngine.Random.Range(0, 101);
+        if (randomChance <=5)
+        {
+            secBall = Instantiate(PiercingBallPrefab, secondaryBallPos.position, Quaternion.identity);
+        }
+        else if (randomChance >5 && randomChance <= 10)
+        {
+            secBall = Instantiate(CannonBallPrefab, secondaryBallPos.position, Quaternion.identity);
+        }
+        else
+        {
             secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
-            secBall.transform.parent = secondaryBallPos;
             secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
+            
+        }
+        secBall.transform.parent = secondaryBallPos;
+        secBall.tag = "ShotBall";
+        secBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
+        secBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
     }
     
     private void Shoot()
@@ -119,7 +159,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // Destroy the ball after the delay
         if (ball != null)
         {
             Destroy(ball);

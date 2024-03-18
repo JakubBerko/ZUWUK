@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour
         splineFollower.spline = spline;
         splineFollower.motion.is2D = true;
         splineFollower.useTriggers = true;
+        gameObject.layer = 10; //layer 10 is ball layer
     }
 
     // Update is called once per frame

@@ -14,12 +14,17 @@ public class BallChain : MonoBehaviour
     private int section = 0;
     private Color ballColorVar;
 
+    public BallBehaviour ballBehaviour;
+
     void Start()
     {
+        ballBehaviour = GameObject.Find("GameManager").GetComponent<BallBehaviour>();
+
         SplineComputer splineComputer = GameObject.Find("Spline").GetComponent<SplineComputer>();
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
         ballColorVar = ballColor.GetRandomColor();
         GameObject newBall = CreateBall(ballColorVar);
+        ballBehaviour.AddBallToList(newBall);
     }
 
     // Update is called once per frame
@@ -43,6 +48,7 @@ public class BallChain : MonoBehaviour
         }
         
         GameObject newBall = CreateBall(ballColorVar);
+        ballBehaviour.AddBallToList(newBall);
         section--;
         ballCount--;
         if (section <= 0)
