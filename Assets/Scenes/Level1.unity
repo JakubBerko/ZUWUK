@@ -5963,6 +5963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splineComputer: {fileID: 0}
   balls: []
+  shotBall: {fileID: 0}
 --- !u!1 &1074706671
 GameObject:
   m_ObjectHideFlags: 0

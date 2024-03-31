@@ -27,4 +27,12 @@ public class CollectibleBehaviours : MonoBehaviour
             Debug.Log("Hit secret!");
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ShotBall")
+        {
+            CollectibleDo();
+            Destroy(collision.gameObject);
+        }
+    }
 }

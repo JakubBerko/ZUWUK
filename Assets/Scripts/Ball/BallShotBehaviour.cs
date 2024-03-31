@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class BallShotBehaviour : MonoBehaviour
 {
+    private void Awake()
+    {
+        
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        CollectibleBehaviours collectibleBehaviours = collider.GetComponent<CollectibleBehaviours>();
-
-        if (collectibleBehaviours != null)
+        if (collider.gameObject.tag == "Ball")
         {
-            collectibleBehaviours.CollectibleDo();
-            Destroy(gameObject);
+            Ball ball = collider.gameObject.GetComponent<Ball>();
+            Vector3 positionOnSpline = ball.GetPositionOnSpline();
+            Debug.Log("Hit ball's position: " + positionOnSpline);
+            gameObject.AddComponent<Ball>();
         }
     }
+
 }
