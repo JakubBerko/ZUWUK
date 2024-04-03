@@ -19,7 +19,7 @@ public class CollectibleBehaviours : MonoBehaviour
             scoreManager.AddNumScore(20);
             scoreManager.AddSliderScore(20f);
 
-            //Debug.Log("Coin hit!");
+            Debug.Log("Coin hit!" + gameObject.name);
             Destroy(gameObject);
         }
         else if (gameObject.CompareTag("Secret"))
@@ -32,6 +32,8 @@ public class CollectibleBehaviours : MonoBehaviour
         if (collision.gameObject.tag == "ShotBall")
         {
             CollectibleDo();
+            Debug.Log("Coin collected!" + gameObject.name);
+
             Destroy(collision.gameObject);
         }
     }

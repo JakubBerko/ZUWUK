@@ -23,6 +23,7 @@ public class Ball : MonoBehaviour
         splineFollower.motion.is2D = true;
         splineFollower.useTriggers = true;
         gameObject.layer = 10; //layer 10 is ball layer
+
         gameObject.tag = "Ball";
     }
 
