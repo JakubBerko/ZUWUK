@@ -42,12 +42,14 @@ public class PlayerController : MonoBehaviour
         primBall.tag = "ShotBall";
         primBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
         primBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        primBall.AddComponent<BallShotBehaviour>();
         secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
         secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
         secBall.transform.parent = secondaryBallPos;
         secBall.tag = "ShotBall";
         secBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
         secBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        secBall.AddComponent<BallShotBehaviour>();
 
         currentPlayerSpot = spotDown;
     }
@@ -114,6 +116,7 @@ public class PlayerController : MonoBehaviour
         secBall.tag = "ShotBall";
         secBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
         secBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        secBall.AddComponent<BallShotBehaviour>();
     }
     
     private void Shoot()
@@ -122,8 +125,6 @@ public class PlayerController : MonoBehaviour
 
         primBall.transform.parent = null;
         primBall.GetComponent<Rigidbody2D>().AddForce(shootingDirection * ballMovementSpeed);
-
-        StartCoroutine(DespawnBallAfterDelay(primBall, 2f));
         StartCoroutine(ShotLimiter());
 
     }
@@ -154,14 +155,5 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-    }
-    private IEnumerator DespawnBallAfterDelay(GameObject ball, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (ball != null)
-        {
-            Destroy(ball);
-        }
     }
 }

@@ -22,5 +22,8 @@ public class BallShotBehaviour : MonoBehaviour
             Destroy(this);
         }
     }
-
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
