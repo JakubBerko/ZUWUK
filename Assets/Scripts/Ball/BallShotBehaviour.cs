@@ -15,6 +15,7 @@ public class BallShotBehaviour : MonoBehaviour
             Ball ball = collider.gameObject.GetComponent<Ball>();
             Vector3 positionOnSpline = ball.GetPositionOnSpline();
             Debug.Log("Hit ball's position: " + positionOnSpline);
+            ball.MoveOnSpline();
             if (GetComponent<Ball>() == null)
             {
                 gameObject.AddComponent<Ball>();

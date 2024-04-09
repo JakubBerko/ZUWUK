@@ -24,7 +24,6 @@ public class BallChain : MonoBehaviour
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
         ballColorVar = ballColor.GetRandomColor();
         GameObject newBall = CreateBall(ballColorVar);
-        ballBehaviour.AddBallToList(newBall);
     }
 
     // Update is called once per frame
@@ -48,7 +47,7 @@ public class BallChain : MonoBehaviour
         }
         
         GameObject newBall = CreateBall(ballColorVar);
-        ballBehaviour.AddBallToList(newBall);
+        ballBehaviour.balls.Add(newBall);
         section--;
         ballCount--;
         if (section <= 0)
