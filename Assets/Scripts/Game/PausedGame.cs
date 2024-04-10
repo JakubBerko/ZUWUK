@@ -38,4 +38,11 @@ public class PausedGame : MonoBehaviour
         playerController.isPaused = false;//povolí støílení
         SceneManager.LoadScene("Level1"); //naète scénu
     }
+    public void Restart()
+    {
+        pausedGameMenu.SetActive(false); //schová UI pausedGame
+        Time.timeScale = 1f; //nastaví èas na 1
+        playerController.isPaused = false;//povolí støílení
+        SceneManager.LoadScene("Level1"); //naète novou scénu
+    }
 }
