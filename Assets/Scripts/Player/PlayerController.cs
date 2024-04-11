@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public bool isPaused = false;
     private bool canShoot = true;
 
+    public AudioSource shootSound;
+
     private BallColor ballColor;
 
     float ballMovementSpeed = 300f;
@@ -131,6 +133,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator ShotLimiter() //antispam støel, zruš støíení, poèkej nìjaký èas, povol støílení
     {
         canShoot = false;
+        shootSound.Play();
         yield return new WaitForSeconds(0.2f);
         canShoot = true;
     }

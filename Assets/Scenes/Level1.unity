@@ -694,6 +694,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1143790485}
     - target: {fileID: 1865146036206877178, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 1745810111}
+    - target: {fileID: 1865146036206877178, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
       propertyPath: CannonBallPrefab
       value: 
       objectReference: {fileID: 2625425701277090264, guid: 62fa79c3763fa56499fda6e4dc709373, type: 3}
@@ -741,6 +745,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6327172253441765316, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
+      propertyPath: m_Volume
+      value: 0.529
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327172253441765316, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 70dc735990dbcb04ab68e9b595857f04, type: 3}
     - target: {fileID: 6382839724949765506, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -4983,17 +4995,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1965066042}
     m_Modifications:
+    - target: {fileID: -5431608151712660887, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_Size.x
+      value: 0.33392677
+      objectReference: {fileID: 0}
+    - target: {fileID: -5431608151712660887, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_Size.y
+      value: 0.33849478
+      objectReference: {fileID: 0}
+    - target: {fileID: -5431608151712660887, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0006267602
+      objectReference: {fileID: 0}
+    - target: {fileID: -5431608151712660887, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0010150787
+      objectReference: {fileID: 0}
     - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.0999801
+      value: 3.2393777
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.150158
       objectReference: {fileID: 0}
     - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.234416
+      value: -3.1651
       objectReference: {fileID: 0}
     - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5489887
+      value: 0.4757
       objectReference: {fileID: 0}
     - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5026,6 +5058,10 @@ PrefabInstance:
     - target: {fileID: 2857781067089449426, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -30.408
+      objectReference: {fileID: 0}
+    - target: {fileID: 4224349140018601799, guid: e986621eef0057942911e6e485040da2, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5136094136468449716, guid: e986621eef0057942911e6e485040da2, type: 3}
       propertyPath: m_Name
@@ -6811,6 +6847,11 @@ PrefabInstance:
 --- !u!4 &1745810110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5228205836426637517, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
+  m_PrefabInstance: {fileID: 248647772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1745810111 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6327172253441765316, guid: cc59edda2dc22f44a80f392a49fb4026, type: 3}
   m_PrefabInstance: {fileID: 248647772}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1802826825 stripped
