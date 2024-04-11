@@ -95,6 +95,11 @@ public class Ball : MonoBehaviour
         //    ahead = balls[index + 1];
         //Debug.Log("Behind: " + behind + " Ahead: " + ahead);
     }
+
+    public void LostGameMoveFast()
+    {
+        splineFollower.followSpeed = 20f;
+    }
 }
 
 

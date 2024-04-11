@@ -45,4 +45,23 @@ public class PausedGame : MonoBehaviour
         playerController.isPaused = false;//povolí støílení
         SceneManager.LoadScene("Level1"); //naète novou scénu
     }
+    public void LostGame()
+    {
+        gameEndMenu.SetActive(true); //zobrazí UI
+        Time.timeScale = 0f; //nastaví èas na 0
+        playerController.isPaused = true;//zastaví støílení
+    }
+    public void EndGame()
+    {
+        foreach (GameObject ball in GameObject.FindGameObjectsWithTag("Ball"))
+        {
+            ball.GetComponent<Ball>().LostGameMoveFast();
+            StartCoroutine(EndDelay(2.5f));
+        }
+    }
+    IEnumerator EndDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        LostGame();
+    }
 }

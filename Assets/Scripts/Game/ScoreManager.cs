@@ -19,7 +19,6 @@ public class ScoreManager : MonoBehaviour
 
     private int lives = 1; //TODO save lives and load them
 
-
     private void Start()
     {
         SetScoreAtStart();
