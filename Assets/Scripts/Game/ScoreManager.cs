@@ -8,6 +8,8 @@ using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
+    private Ball ball;
+
     [SerializeField] TMP_Text scoreText;
     [SerializeField] Slider scoreSlider;
     [SerializeField] TMP_Text lifesText;
@@ -45,9 +47,14 @@ public class ScoreManager : MonoBehaviour
         totalValue = scoreSlider.value + scorePercent;
         scoreSlider.DOValue(totalValue, 1.5f)
             .SetEase(Ease.InQuad);
-        if(totalValue >=100)
-        AddLife();
-        
+        if(totalValue >= 100)
+        {
+            AddLife();
+            foreach (GameObject ball in GameObject.FindGameObjectsWithTag("Ball"))
+            {
+                ball.GetComponent<Ball>().MoveBackCombo();
+            }
+        }
     }
     public void SetScoreAtStart()
     {

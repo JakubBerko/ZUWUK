@@ -100,6 +100,19 @@ public class Ball : MonoBehaviour
     {
         splineFollower.followSpeed = 20f;
     }
+    public void MoveBackCombo()
+    {
+        StartCoroutine(MoveBack(1.5f));
+    }
+    private IEnumerator MoveBack(float speed)
+    {
+        splineFollower.direction = Spline.Direction.Backward;
+        splineFollower.followSpeed = -speed;
+        Debug.Log("Moving back" + splineFollower.direction);
+        yield return new WaitForSeconds(2f);
+        splineFollower.direction = Spline.Direction.Forward;
+        splineFollower.followSpeed = 1f;
+    }
 }
 
 

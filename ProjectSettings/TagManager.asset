@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Tunnel
   - Ball
+  - WaterField
   layers:
   - Default
   - TransparentFX
