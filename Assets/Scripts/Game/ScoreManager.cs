@@ -10,18 +10,23 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] TMP_Text scoreText;
     [SerializeField] Slider scoreSlider;
-    [SerializeField] TMP_Text livesText;
+    [SerializeField] TMP_Text lifesText;
 
     private int totalScore;
     private int scoreToAdd;
 
     private float totalValue;
 
-    private int lives = 1; //TODO save lives and load them
+    public int lifes;
 
     private void Start()
     {
+        if (PlayerPrefs.HasKey("Lifes"))
+        {
+            lifes = PlayerPrefs.GetInt("Lifes");
+        }
         SetScoreAtStart();
+        UpdateLifes();
     }
     
     public void AddNumScore(int scoreNum)
@@ -41,15 +46,32 @@ public class ScoreManager : MonoBehaviour
         scoreSlider.DOValue(totalValue, 1.5f)
             .SetEase(Ease.InQuad);
         if(totalValue >=100)
-        UpdateLives();
+        AddLife();
         
     }
     public void SetScoreAtStart()
     {
         scoreText.text = "0";
     }
-    private void UpdateLives()
+    public void UpdateLifes()
     {
-        livesText.text = "x" + (lives+1);
+        lifesText.text = "x" + (lifes);
+        PlayerPrefs.SetInt("Lifes", lifes);
+        PlayerPrefs.Save();
     }
+    public void RemoveLife()
+    {
+        lifes--;
+        lifesText.text = "x" + (lifes);
+        PlayerPrefs.SetInt("Lifes", lifes);
+        PlayerPrefs.Save();
+    }
+    private void AddLife()
+    {
+        lifes++;
+        lifesText.text = "x" + (lifes);
+        PlayerPrefs.SetInt("Lifes", lifes);
+        PlayerPrefs.Save();
+    }
+
 }

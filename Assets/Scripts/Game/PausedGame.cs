@@ -8,8 +8,11 @@ public class PausedGame : MonoBehaviour
     [SerializeField] GameObject pausedGameMenu;
     public GameObject gameEndMenu;
     private PlayerController playerController;
+    private ScoreManager scoreManager;
+
     private void Start()
     {
+        scoreManager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     public void StopGame()
@@ -47,17 +50,26 @@ public class PausedGame : MonoBehaviour
     }
     public void LostGame()
     {
+        Debug.Log("Lives bofore removal: " + scoreManager.lifes);
+        scoreManager.RemoveLife(); //odebere život
+        Debug.Log("Removed a life! Lifes: " + scoreManager.lifes);
+        if (scoreManager.lifes <= -1 )
+        {
+            scoreManager.lifes = 1;
+            scoreManager.UpdateLifes();
+        }
         gameEndMenu.SetActive(true); //zobrazí UI
         Time.timeScale = 0f; //nastaví èas na 0
         playerController.isPaused = true;//zastaví støílení
+
     }
     public void EndGame()
     {
         foreach (GameObject ball in GameObject.FindGameObjectsWithTag("Ball"))
         {
             ball.GetComponent<Ball>().LostGameMoveFast();
-            StartCoroutine(EndDelay(2.5f));
         }
+        StartCoroutine(EndDelay(2.5f));
     }
     IEnumerator EndDelay(float delay)
     {

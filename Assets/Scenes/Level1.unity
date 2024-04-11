@@ -5905,7 +5905,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1135762425}
   scoreSlider: {fileID: 893161177}
-  livesText: {fileID: 235367879}
+  lifesText: {fileID: 235367879}
+  lifes: 1
 --- !u!114 &1046466155
 MonoBehaviour:
   m_ObjectHideFlags: 0
