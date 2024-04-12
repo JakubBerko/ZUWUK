@@ -77,8 +77,6 @@ public class ScoreManager : MonoBehaviour
     {
         lifes++;
         lifesText.text = "x" + (lifes);
-        PlayerPrefs.SetInt("Lifes", lifes);
-        PlayerPrefs.Save();
     }
 
 }
