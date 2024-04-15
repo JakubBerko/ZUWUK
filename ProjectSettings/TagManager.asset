@@ -11,6 +11,7 @@ TagManager:
   - Tunnel
   - Ball
   - WaterField
+  - SecretObject
   layers:
   - Default
   - TransparentFX

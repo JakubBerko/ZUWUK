@@ -9,7 +9,6 @@ public class Ball : MonoBehaviour
 {
     SplineComputer spline;
     private SplineFollower splineFollower;
-    private BallBehaviour ballBehaviour;
 
     public GameObject ahead;
     public GameObject behind;
@@ -20,7 +19,6 @@ public class Ball : MonoBehaviour
     }
     void Start()
     {
-        ballBehaviour = GameObject.Find("GameManager").GetComponent<BallBehaviour>();
         spline = GameObject.Find("Spline").GetComponent<SplineComputer>();
 
         spline.is2D = true;
@@ -29,7 +27,6 @@ public class Ball : MonoBehaviour
         splineFollower.motion.is2D = true;
         splineFollower.useTriggers = true;
         gameObject.layer = 10; //layer 10 is ball layer
-        Debug.Log(ballBehaviour.balls.Count);
         
 
         gameObject.tag = "Ball";
@@ -40,7 +37,6 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
     public Vector3 GetPositionOnSpline()
     {
@@ -49,18 +45,17 @@ public class Ball : MonoBehaviour
     }
     public void MoveOnSpline()
     {
-        //TODO: assign splinefollower(done at start), add position on spline, add ball to list, (maybe remove its speed if needed? -> do this in ball script so it is a ball not shot ball)
 
-        Debug.Log("Moving on spline");
+        //TODO: assign splinefollower(done at start), add position on spline, add ball to list, (maybe remove its speed if needed? -> do this in ball script so it is a ball not shot ball)
+        Debug.Log($"Moving ball {GetIndexFromBalls()}");
 
         splineFollower.Move(offset);
-        //ahead.GetComponent<Ball>().MoveOnSpline(); -- lag machine memory leak a co ještì víc, nekoneèný loop volání na move
+        ahead?.GetComponent<Ball>().MoveOnSpline(); //-- lag machine memory leak a co ještì víc, nekoneèný loop volání na move
     }
     private void FindNeighboringBalls() //ahead = koule pøed ; behind = koule za
     {
-        List<GameObject> balls = ballBehaviour.balls;
-        int index = balls.IndexOf(gameObject)+1;
-        Debug.Log("Index: " + index);
+        List<GameObject> balls = BallBehaviour.GetBalls();
+        int index = GetIndexFromBalls();
 
         // Set behind ball
         if (index < balls.Count - 1)
@@ -74,7 +69,10 @@ public class Ball : MonoBehaviour
         else
             ahead = null; // first ball
 
-        Debug.Log("Behind: " + behind + " Ahead: " + ahead);
+        int aheadIndex = ahead == null ? -1 : ahead.GetComponent<Ball>().GetIndexFromBalls();
+        int behindIndex = behind == null ? -1 : behind.GetComponent<Ball>().GetIndexFromBalls();
+
+        Debug.Log($"Index: {index}\nAhead: {aheadIndex}\nBehind: {behindIndex}");
 
 
 
@@ -99,6 +97,10 @@ public class Ball : MonoBehaviour
     public void LostGameMoveFast()
     {
         splineFollower.followSpeed = 20f;
+    }
+    public int GetIndexFromBalls()
+    {
+        return BallBehaviour.GetBalls().IndexOf(gameObject);
     }
     public void MoveBackCombo()
     {

@@ -5,5 +5,10 @@ using UnityEngine;
 
 public class BallBehaviour : MonoBehaviour
 {
-    public List<GameObject> balls = new List<GameObject>();
+    public static List<GameObject> GetBalls()
+    {
+        List<GameObject> balls = new List<GameObject>();
+        foreach (Transform trans in GameObject.Find("Balls").transform) balls.Add(trans.gameObject);
+        return balls;
+    }
 }

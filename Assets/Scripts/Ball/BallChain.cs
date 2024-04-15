@@ -14,12 +14,8 @@ public class BallChain : MonoBehaviour
     private int section = 0;
     private Color ballColorVar;
 
-    public BallBehaviour ballBehaviour;
-
     void Start()
     {
-        ballBehaviour = GameObject.Find("GameManager").GetComponent<BallBehaviour>();
-
         SplineComputer splineComputer = GameObject.Find("Spline").GetComponent<SplineComputer>();
         ballColor = GameObject.Find("GameManager").GetComponent<BallColor>();
         ballColorVar = ballColor.GetRandomColor();
@@ -35,6 +31,7 @@ public class BallChain : MonoBehaviour
     public GameObject CreateBall(Color color)
     {
         GameObject ball = Instantiate(ballPrefab,transform.position, Quaternion.identity);
+        ball.transform.SetParent(GameObject.Find("Balls").transform);
         ball.AddComponent<Ball>();
         ball.GetComponent<SpriteRenderer>().color = color;
         return ball;
@@ -47,7 +44,6 @@ public class BallChain : MonoBehaviour
         }
         
         GameObject newBall = CreateBall(ballColorVar);
-        ballBehaviour.balls.Add(newBall);
         section--;
         ballCount--;
         if (section <= 0)
