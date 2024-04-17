@@ -16,6 +16,11 @@ public class Ball : MonoBehaviour
     private float offset = 0.3f;
     void Awake()
     {
+        
+    }
+    private void OnEnable()
+    {
+        
     }
     void Start()
     {
@@ -27,7 +32,7 @@ public class Ball : MonoBehaviour
         splineFollower.motion.is2D = true;
         splineFollower.useTriggers = true;
         gameObject.layer = 10; //layer 10 is ball layer
-        
+
 
         gameObject.tag = "Ball";
 
@@ -38,11 +43,11 @@ public class Ball : MonoBehaviour
     void Update()
     {
     }
-    public Vector3 GetPositionOnSpline()
-    {
-        Vector3 positionOnSpline = splineFollower.result.position;
-        return positionOnSpline;
-    }
+    //public Vector3 GetPositionOnSpline() //touhle cesou to nepùjde
+    //{
+    //    Vector3 positionOnSpline = splineFollower.result.position;
+    //    return positionOnSpline;
+    //}
     public void MoveOnSpline()
     {
 
@@ -115,6 +120,20 @@ public class Ball : MonoBehaviour
         splineFollower.direction = Spline.Direction.Forward;
         splineFollower.followSpeed = 1f;
     }
+    public void PlaceInLine(double percent)
+    {
+        if (splineFollower != null)
+        {
+            splineFollower.Move(percent);
+            Debug.Log("Placing in line to: " + percent);
+        }
+        else
+        {
+            Debug.LogError("SplineFollower component not initialized.");
+        }
+    }
+
+    
 }
 
 

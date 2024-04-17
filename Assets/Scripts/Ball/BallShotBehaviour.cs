@@ -16,12 +16,15 @@ public class BallShotBehaviour : MonoBehaviour
         if (collider.gameObject.tag != "Ball") return;
         cannotCollide = true;
         Ball ball = collider.gameObject.GetComponent<Ball>();
-        Vector3 positionOnSpline = ball.GetPositionOnSpline();
-        Debug.Log("Hit ball's position: " + positionOnSpline);
         ball.MoveOnSpline();
+        double ballPos = collider.gameObject.GetComponent<SplineFollower>().GetPercent();
+        Debug.Log($"BallPos: {ballPos}");
         if (GetComponent<Ball>() == null)
         {
             gameObject.AddComponent<Ball>();
+
+            gameObject.GetComponent<Ball>().PlaceInLine(ballPos);
+            Debug.Log("Placing in line to: " + ballPos);
         }
 
         Destroy(this);
