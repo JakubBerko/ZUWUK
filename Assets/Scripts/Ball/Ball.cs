@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
 
     public GameObject ahead;
     public GameObject behind;
+    public Action<Ball> OnBallReady;
 
     private float offset = 0.3f;
     void Awake()
@@ -28,17 +29,25 @@ public class Ball : MonoBehaviour
 
         spline.is2D = true;
         splineFollower = gameObject.AddComponent<SplineFollower>();
+
         splineFollower.spline = spline;
         splineFollower.motion.is2D = true;
         splineFollower.useTriggers = true;
         gameObject.layer = 10; //layer 10 is ball layer
-
+        
 
         gameObject.tag = "Ball";
 
         FindNeighboringBalls();
+        StartCoroutine(Bolest());
+        //PlaceInLine(0.66);
     }
+    IEnumerator Bolest()
+    {
+        yield return new WaitForSeconds(0.1f);
+        OnBallReady?.Invoke(this);
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -55,7 +64,7 @@ public class Ball : MonoBehaviour
         Debug.Log($"Moving ball {GetIndexFromBalls()}");
 
         splineFollower.Move(offset);
-        ahead?.GetComponent<Ball>().MoveOnSpline(); //-- lag machine memory leak a co ještì víc, nekoneèný loop volání na move
+        ahead?.GetComponent<Ball>().MoveOnSpline();
     }
     private void FindNeighboringBalls() //ahead = koule pøed ; behind = koule za
     {
@@ -122,9 +131,12 @@ public class Ball : MonoBehaviour
     }
     public void PlaceInLine(double percent)
     {
+        Debug.Log("pøed if");
         if (splineFollower != null)
         {
+            Debug.Log("pøed kodem");
             splineFollower.Move(percent);
+            //splineFollower.Move(1);
             Debug.Log("Placing in line to: " + percent);
         }
         else

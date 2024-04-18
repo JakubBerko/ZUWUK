@@ -21,9 +21,10 @@ public class BallShotBehaviour : MonoBehaviour
         Debug.Log($"BallPos: {ballPos}");
         if (GetComponent<Ball>() == null)
         {
-            gameObject.AddComponent<Ball>();
+            Ball createdBall = gameObject.AddComponent<Ball>();
 
-            gameObject.GetComponent<Ball>().PlaceInLine(ballPos);
+            //createdBall.PlaceInLine(ballPos);
+            createdBall.OnBallReady += (ballsssss) => { Debug.Log("BAAAAAALLLLLSSSSSS"); ballsssss.PlaceInLine(ballPos); };
             Debug.Log("Placing in line to: " + ballPos);
         }
 
