@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 public class Ball : MonoBehaviour
 {
     SplineComputer spline;
+
+    ScoreManager scoreManager;
+
     private SplineFollower splineFollower;
 
     public GameObject ahead;
@@ -26,6 +29,8 @@ public class Ball : MonoBehaviour
     void Start()
     {
         spline = GameObject.Find("Spline").GetComponent<SplineComputer>();
+
+        scoreManager = GameObject.Find("GameManager").GetComponent<ScoreManager>();
 
         spline.is2D = true;
         splineFollower = gameObject.AddComponent<SplineFollower>();
@@ -120,18 +125,21 @@ public class Ball : MonoBehaviour
         {
             Debug.Log("Same color ahead");
             Destroy(ahead);
+            scoreManager.AddNumScore(200);
             return true;
         }
         if (behind != null && behind.GetComponent<Ball>().GetColor() == GetComponent<SpriteRenderer>().color && color == GetComponent<SpriteRenderer>().color)
         {
             Debug.Log("Same color behind");
             Destroy(behind);
+            scoreManager.AddNumScore(200);
             return true;
         }
         if(aheadCol == GetComponent<SpriteRenderer>().color && behindCol == GetComponent<SpriteRenderer>().color && color == GetComponent<SpriteRenderer>().color)
         {
             Debug.Log("Same color ahead and behind");
             Destroy(gameObject);
+            scoreManager.AddNumScore(200);
             return true;
         }
         return false;
