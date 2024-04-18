@@ -69,7 +69,7 @@ public class PausedGame : MonoBehaviour
         {
             ball.GetComponent<Ball>().LostGameMoveFast();
         }
-        StartCoroutine(EndDelay(2.5f));
+        StartCoroutine(EndDelay(1.25f));
     }
     IEnumerator EndDelay(float delay)
     {

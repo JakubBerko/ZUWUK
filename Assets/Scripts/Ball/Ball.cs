@@ -40,7 +40,6 @@ public class Ball : MonoBehaviour
 
         FindNeighboringBalls();
         StartCoroutine(Bolest());
-        //PlaceInLine(0.66);
     }
     IEnumerator Bolest()
     {
@@ -51,6 +50,12 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine(Findbalz());
+    }
+    IEnumerator Findbalz()
+    {
+        yield return new WaitForSeconds(0.1f);
+        FindNeighboringBalls();
     }
     //public Vector3 GetPositionOnSpline() //touhle cesou to nepùjde
     //{
@@ -66,7 +71,7 @@ public class Ball : MonoBehaviour
         splineFollower.Move(offset);
         ahead?.GetComponent<Ball>().MoveOnSpline();
     }
-    private void FindNeighboringBalls() //ahead = koule pøed ; behind = koule za
+    public void FindNeighboringBalls() //ahead = koule pøed ; behind = koule za
     {
         List<GameObject> balls = BallBehaviour.GetBalls();
         int index = GetIndexFromBalls();
@@ -86,7 +91,7 @@ public class Ball : MonoBehaviour
         int aheadIndex = ahead == null ? -1 : ahead.GetComponent<Ball>().GetIndexFromBalls();
         int behindIndex = behind == null ? -1 : behind.GetComponent<Ball>().GetIndexFromBalls();
 
-        Debug.Log($"Index: {index}\nAhead: {aheadIndex}\nBehind: {behindIndex}");
+        //Debug.Log($"Index: {index}\nAhead: {aheadIndex}\nBehind: {behindIndex}");
 
 
 
@@ -106,6 +111,30 @@ public class Ball : MonoBehaviour
         //if (index < balls.Length - 1)
         //    ahead = balls[index + 1];
         //Debug.Log("Behind: " + behind + " Ahead: " + ahead);
+    }
+    public bool FindAndDestroyNeighborWithSameColorAndSelf(Color color)
+    {
+        Color aheadCol = ahead != null ? ahead.GetComponent<Ball>().GetColor(): Color.clear; 
+        Color behindCol = behind != null ? behind.GetComponent<Ball>().GetColor() : Color.clear;
+        if (ahead != null && ahead.GetComponent<Ball>().GetColor() == GetComponent<SpriteRenderer>().color && color == GetComponent<SpriteRenderer>().color)
+        {
+            Debug.Log("Same color ahead");
+            Destroy(ahead);
+            return true;
+        }
+        if (behind != null && behind.GetComponent<Ball>().GetColor() == GetComponent<SpriteRenderer>().color && color == GetComponent<SpriteRenderer>().color)
+        {
+            Debug.Log("Same color behind");
+            Destroy(behind);
+            return true;
+        }
+        if(aheadCol == GetComponent<SpriteRenderer>().color && behindCol == GetComponent<SpriteRenderer>().color && color == GetComponent<SpriteRenderer>().color)
+        {
+            Debug.Log("Same color ahead and behind");
+            Destroy(gameObject);
+            return true;
+        }
+        return false;
     }
 
     public void LostGameMoveFast()
@@ -131,11 +160,11 @@ public class Ball : MonoBehaviour
     }
     public void PlaceInLine(double percent)
     {
-        Debug.Log("pøed if");
+        //Debug.Log("pøed if");
         if (splineFollower != null)
         {
-            Debug.Log("pøed kodem");
-            splineFollower.Move(percent);
+            //Debug.Log("pøed kodem");
+            splineFollower.Move(percent - 0.0045);
             //splineFollower.Move(1);
             Debug.Log("Placing in line to: " + percent);
         }
@@ -144,7 +173,10 @@ public class Ball : MonoBehaviour
             Debug.LogError("SplineFollower component not initialized.");
         }
     }
-
+    public Color GetColor()
+    {
+        return GetComponent<SpriteRenderer>().color;
+    }
     
 }
 

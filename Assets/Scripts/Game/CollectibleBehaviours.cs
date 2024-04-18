@@ -44,7 +44,7 @@ public class CollectibleBehaviours : MonoBehaviour
             Debug.Log("Hit secret object!");
             startPosition = transform.position;
 
-            // Create a sequence of tweens to make the GameObject wiggle and then move up
+            //pt·Ëkova animace 
             DG.Tweening.Sequence sequence = DOTween.Sequence();
             sequence.Append(transform.DOLocalMoveX(startPosition.x + wiggleStrength, wiggleDuration).SetEase(Ease.InOutQuad).SetRelative(true).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad));
             sequence.Join(transform.DOLocalRotate(new Vector3(0, 0, wiggleRandomness), wiggleDuration).SetRelative(true).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad));

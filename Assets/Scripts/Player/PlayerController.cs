@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     public Transform secondaryBallPos;
     public GameObject ball1Prefab;
     public GameObject PiercingBallPrefab;
-    public GameObject CannonBallPrefab;
 
     private GameObject primBall;
     private GameObject secBall;
@@ -99,23 +98,10 @@ public class PlayerController : MonoBehaviour
 
     private void CreateNewBall() //fix piercing ball (it flickers and doesnt spawn) - ono samo funguje? ok
     {
-        int randomChance = UnityEngine.Random.Range(0, 101);
-        if (randomChance <=5)
-        {
-            secBall = Instantiate(PiercingBallPrefab, secondaryBallPos.position, Quaternion.identity);
-        }
-        else if (randomChance >5 && randomChance <= 10)
-        {
-            secBall = Instantiate(CannonBallPrefab, secondaryBallPos.position, Quaternion.identity);
-        }
-        else
-        {
             secBall = Instantiate(ball1Prefab, secondaryBallPos.position, Quaternion.identity);
             secBall.GetComponent<SpriteRenderer>().color = ballColor.GetRandomColor();
-            
-        }
+            secBall.tag = "ShotBall";
         secBall.transform.parent = secondaryBallPos;
-        secBall.tag = "ShotBall";
         secBall.GetComponent<SpriteRenderer>().sortingLayerName = "Balls";
         secBall.GetComponent<SpriteRenderer>().sortingOrder = 3;
         secBall.AddComponent<BallShotBehaviour>();

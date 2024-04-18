@@ -86,9 +86,9 @@ public class SettingsMenuBehaviour : MonoBehaviour
     {
         //Debug.Log("Before setting quality level: " + QualitySettings.GetQualityLevel());
         //Debug.Log("Setting quality level to index: " + qualityIndex);
-        QualitySettings.SetQualityLevel(qualityIndex);
-        PlayerPrefs.SetInt("graphicsQuality", QualitySettings.GetQualityLevel());
-        PlayerPrefs.Save();
+        //QualitySettings.SetQualityLevel(qualityIndex);
+        //PlayerPrefs.SetInt("graphicsQuality", QualitySettings.GetQualityLevel());
+        //PlayerPrefs.Save();
 
         //Debug.Log("After setting quality level: " + QualitySettings.GetQualityLevel());
         //Debug.Log("Current anti-aliasing level: " + QualitySettings.antiAliasing);

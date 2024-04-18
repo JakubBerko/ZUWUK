@@ -10,7 +10,7 @@ public class BallChain : MonoBehaviour
 
     private BallColor ballColor;
     public GameObject ballPrefab;
-    [SerializeField] int ballCount = 5;
+    private int ballCount = 14;
     private int section = 0;
     private Color ballColorVar;
 
@@ -45,6 +45,7 @@ public class BallChain : MonoBehaviour
         
         GameObject newBall = CreateBall(ballColorVar);
         section--;
+        Debug.Log("ballCount: " + ballCount);
         ballCount--;
         if (section <= 0)
         {

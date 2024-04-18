@@ -12,6 +12,7 @@ TagManager:
   - Ball
   - WaterField
   - SecretObject
+  - PiercingBall
   layers:
   - Default
   - TransparentFX
